@@ -35,7 +35,26 @@ Jeder Dienst bekommt einen **eigenen Namen**, alle zeigen auf deine Heim-IP. Je 
 
 Am pflegeleichtesten ist eine eigene Domain mit Wildcard-CNAME. Neue Dienste brauchen dann keine DNS-Änderung mehr.
 
-Testen (z. B. auf dem Proxmox-Host): `getent hosts reise.meinname.de` muss deine öffentliche IP zeigen.
+### Mit GoIP (goip.de)
+
+GoIP vergibt Namen der Form `name.goip.de`. Unternamen wie `reise.name.goip.de` oder eine Wildcard bietet GoIP laut seiner Hilfe nicht an. Dafür kann ein Konto **mehrere Subdomains** haben, und alle lassen sich mit einer einzigen Aktualisierung des Routers auf die neue IP setzen.
+
+1. Bei goip.de anmelden → **weitere Subdomain anlegen** je Dienst, z. B. `name-reise.goip.de`, und sie **demselben Router** zuordnen wie die bisherige.
+2. FRITZ!Box → *Internet → Freigaben → DynDNS*:
+   - DynDNS-Anbieter: **Benutzerdefiniert**
+   - Update-URL (ohne `subdomain`, dann aktualisiert GoIP **alle** Subdomains des Routers auf einmal):
+     ```
+     https://www.goip.de/setip?username=<username>&password=<pass>&ip=<ipaddr>
+     ```
+     `<username>`, `<pass>` und `<ipaddr>` genau so stehen lassen, die FRITZ!Box setzt sie ein.
+   - Domainname: die bisherige Subdomain (`name.goip.de`), Benutzername und Kennwort von GoIP
+3. Nach ein paar Minuten testen: `getent hosts name-reise.goip.de` zeigt dieselbe IP wie `name.goip.de`.
+
+Die bisherige Subdomain kann für die Dienste mit eigenen Portfreigaben weiterlaufen. Neue Webdienste bekommen je eine eigene Subdomain und laufen über den Proxy.
+
+> Später bequemer: eine eigene Domain (ca. 1 €/Monat) mit `*.meinname.de` als CNAME auf `name.goip.de`. Dann braucht ein neuer Dienst keine neue Subdomain mehr bei GoIP.
+
+Allgemein testen (z. B. auf dem Proxmox-Host): `getent hosts reise.meinname.de` muss deine öffentliche IP zeigen.
 
 ## 3. Router
 
