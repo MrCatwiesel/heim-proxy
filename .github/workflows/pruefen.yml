@@ -1,0 +1,16 @@
+# Prüft Skripte und Compose-Datei bei jedem Push
+name: Prüfen
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Shell-Skripte (shellcheck)
+        run: shellcheck install.sh update.sh proxmox/create-ct.sh
+      - name: docker-compose.yml
+        run: docker compose config -q

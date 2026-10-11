@@ -1,0 +1,24 @@
+# Heim-Proxy: Nginx Proxy Manager
+# Verteilt Anfragen auf Port 80/443 anhand des Namens (z. B. reise.example.de) an die Server im Heimnetz
+# und holt die HTTPS-Zertifikate automatisch (Let's Encrypt).
+services:
+  proxy:
+    # Für feste Stände eine Versionsnummer statt "latest" eintragen (siehe docs/PFLEGE.md)
+    image: jc21/nginx-proxy-manager:latest
+    container_name: heim-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"     # Router leitet hierher weiter (für Zertifikate und Umleitung auf https)
+      - "443:443"   # Router leitet hierher weiter
+      - "81:81"     # Verwaltungsoberfläche – NUR im Heimnetz, NICHT im Router freigeben!
+    environment:
+      TZ: Europe/Berlin
+      DISABLE_IPV6: "false"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    healthcheck:
+      test: ["CMD", "/usr/bin/check-health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
