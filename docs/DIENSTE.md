@@ -5,6 +5,7 @@ Hier jeden Dienst eintragen, der über den Proxy erreichbar ist. So weißt du au
 | Name (extern) | Ziel (intern) | Container / VM | Zugriff | Notiz |
 | --- | --- | --- | --- | --- |
 | `reise.meinname.de` | `http://192.168.178.50:8787` | CT nix-wie-weg | öffentlich (Schlüssel in der App) | Upload 40 MB, siehe [NIX-WIE-WEG.md](NIX-WIE-WEG.md) |
+| `name-fotos.goip.de` | `http://<Piwigo-IP>:80` | Piwigo | öffentlich (Piwigo-Login) | Upload 100 MB, siehe [PIWIGO.md](PIWIGO.md) |
 |  |  |  |  |  |
 
 ## Nicht über den Proxy (eigene Portfreigabe oder nur intern)

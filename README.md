@@ -43,6 +43,7 @@ docs/
   EINRICHTUNG.md       Container, DynDNS, Router, Umzug bestehender Weiterleitungen
   SICHERHEIT.md        Erste Anmeldung, was nie nach außen darf
   NIX-WIE-WEG.md       Abgleich-Server der Reise-App eintragen
+  PIWIGO.md            Piwigo-Galerie umziehen (eigene Subdomain, HTTPS)
   DIENSTE.md           Liste aller Dienste hinter dem Proxy (hier pflegen!)
   PFLEGE.md            Update, Sicherung, Fehlersuche
 ```

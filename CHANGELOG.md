@@ -1,5 +1,8 @@
 # Änderungsprotokoll
 
+## 0.2.0 – 2026-10-11
+- Anleitung für Piwigo hinter dem Proxy (eigene Subdomain, HTTPS, Upload-Grenzen, Verbindung zu Nix wie weg)
+
 ## 0.1.2 – 2026-10-11
 - create-ct.sh: Netzmaske auch als 255.255.255.0 erlaubt, Eingaben werden geprüft
 
