@@ -1,5 +1,8 @@
 # Änderungsprotokoll
 
+## 0.1.2 – 2026-10-11
+- create-ct.sh: Netzmaske auch als 255.255.255.0 erlaubt, Eingaben werden geprüft
+
 ## 0.1.1 – 2026-10-11
 - Anleitung für GoIP (goip.de): mehrere Subdomains, FRITZ!Box-Update-URL für alle Subdomains auf einmal
 

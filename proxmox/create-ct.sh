@@ -20,8 +20,26 @@ IP=""
 while [[ ! $IP =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; do
   IP=$(ask "Feste IP im Heimnetz (frei, außerhalb des DHCP-Bereichs)" "192.168.178.40")
 done
-CIDR=$(ask "Netzmaske als Zahl (24 = 255.255.255.0)" "24")
-GW=$(ask "Gateway (Router)" "${IP%.*}.1")
+# Netzmaske: Zahl (24) oder Schreibweise 255.255.255.0 – beides wird angenommen
+mask_to_cidr() {
+  local m=$1 n=0 o
+  [[ $m =~ ^[0-9]+$ ]] && { echo "$m"; return; }
+  IFS=. read -r -a parts <<<"$m"
+  for o in "${parts[@]}"; do
+    case $o in 255) n=$((n+8));; 254) n=$((n+7));; 252) n=$((n+6));; 248) n=$((n+5));;
+      240) n=$((n+4));; 224) n=$((n+3));; 192) n=$((n+2));; 128) n=$((n+1));; 0) ;; *) echo ""; return;; esac
+  done
+  echo "$n"
+}
+CIDR=""
+while [[ ! $CIDR =~ ^[0-9]+$ ]] || (( CIDR < 8 || CIDR > 30 )); do
+  CIDR=$(mask_to_cidr "$(ask "Netzmaske (24 oder 255.255.255.0)" "24")")
+done
+GW=""
+while [[ ! $GW =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; do
+  GW=$(ask "Gateway (Router)" "${IP%.*}.1")
+done
+echo "→ Netz: $IP/$CIDR, Gateway $GW"
 BRIDGE=$(ask "Netzwerk-Bridge" "vmbr0")
 STORAGE=$(ask "Speicher für die Festplatte" "local-lvm")
 TSTORE=$(ask "Speicher für Vorlagen" "local")
