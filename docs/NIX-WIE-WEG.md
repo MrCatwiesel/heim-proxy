@@ -55,6 +55,6 @@ Erwartet: `{"ok":true,...}`.
 2. Server-Adresse `https://reise.meinname.de` und Schlüssel → **Verbinden**
 3. „Kopplungs-Link teilen“ an die anderen Geräte schicken → dort öffnen → **Verbinden**
 
-## Optional: die App selbst zu Hause hosten
+## Die App selbst kommt auch vom eigenen Server
 
-Wer die App nicht über GitHub Pages, sondern vom eigenen Server laden will: Im Nix-wie-weg-Container `install.sh --web …` ist für einen Container **mit eigenen Ports 80/443** gedacht. Hinter diesem Proxy wäre stattdessen ein zweiter Proxy Host auf einen Webserver mit dem gebauten Ordner `dist/` nötig. Das kann später ergänzt werden. GitHub Pages reicht für den Anfang völlig.
+Ab Nix wie weg 1.3 liefert der Abgleich-Server die App gleich mit aus. Unter `https://reise.meinname.de` ist dann die App, unter `/api/…` der Abgleich. Am Proxy Host ändert sich nichts. Einrichtung und tägliches Update übernimmt das Installationsskript im Nix-wie-weg-Container (siehe dort `server/proxmox/README.md` → „App vom eigenen Server“).
